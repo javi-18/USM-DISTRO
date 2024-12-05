@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package caravanas;
+
+option go_package = "Caravanas/proto";
+
+service CaravanasService {
+  rpc ProcesarPedido (Pedido) returns (Estado) {}
+}
+
+message Pedido {
+  int32 id = 1;
+  string tipo = 2;
+  string nombre = 3;
+  int32 valor = 4;
+  string escolta = 5;
+  string destino = 6;
+  int32 seguimiento = 7;
+}
+
+message Estado {
+  int32 seguimiento = 1;
+}

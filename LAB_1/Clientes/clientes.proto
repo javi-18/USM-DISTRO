@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package clientes;
+
+option go_package = "Clientes/proto";
+
+service ClientesService {
+  rpc EnviarPedido (Pedido) returns (Respuesta) {}
+}
+
+message Pedido {
+  int32 id = 1;
+  string tipo = 2;
+  string nombre = 3;
+  int32 valor = 4;
+  string escolta = 5;
+  string destino = 6;
+  int32 seguimiento = 7;
+}
+
+message Respuesta {
+  int32 seguimiento = 1;
+}
