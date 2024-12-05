@@ -1,0 +1,47 @@
+version: '3'
+services:
+  servidor-hextech1:
+    build:
+      context: ./ServidoresHextech
+    container_name: servidorhextech1
+    network_mode: "bridge"
+    environment:
+      - SERVER_ID=1
+    ports:
+      - "5002:5002"
+    stdin_open: true
+    tty: true
+    volumes:
+      - servidorhextech1_data:/app/data  
+
+  servidor-hextech2:
+    build:
+      context: ./ServidoresHextech
+    container_name: servidorhextech2
+    network_mode: "bridge"
+    environment:
+      - SERVER_ID=2
+    ports:
+      - "5003:5003"
+    stdin_open: true
+    tty: true
+    volumes:
+      - servidorhextech2_data:/app/data  
+
+  servidor-hextech3:
+    build:
+      context: ./ServidoresHextech
+    container_name: servidorhextech3
+    network_mode: "bridge"
+    environment:
+      - SERVER_ID=3
+    ports:
+      - "5004:5004"
+    stdin_open: true
+    tty: true
+    volumes:
+      - servidorhextech3_data:/app/data
+volumes:
+  servidorhextech1_data:
+  servidorhextech2_data:
+  servidorhextech3_data:

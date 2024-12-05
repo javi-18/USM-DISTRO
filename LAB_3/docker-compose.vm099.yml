@@ -1,0 +1,15 @@
+version: '3'
+services:
+  supervisoreshexgate:
+    build:
+      context: ./SupervisoresHexgate
+    container_name: supervisoreshexgate
+    network_mode: "bridge"
+    ports:
+      - "5006:5006"
+    stdin_open: true
+    tty: true
+    volumes:
+      - supervisor_logs:/app/logs
+volumes:
+  supervisor_logs:

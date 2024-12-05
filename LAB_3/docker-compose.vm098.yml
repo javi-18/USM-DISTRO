@@ -1,0 +1,15 @@
+version: '3'
+services:
+  jayce:
+    build:
+      context: ./Jayce
+    container_name: jayce
+    network_mode: "bridge"
+    ports:
+      - "5005:5005"
+    stdin_open: true
+    tty: true
+    volumes:
+      - jayce_logs:/app/logs
+volumes:
+  jayce_logs:
