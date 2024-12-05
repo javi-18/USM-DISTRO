@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  logistica:
+    build: ./logistica
+    container_name: logistica_container
+    ports:
+      - "50051:50051"
+    networks:
+      - grpc-server
+  
+  clientes:
+    build: ./clientes
+    container_name: clientes_container
+    network:
+      - grpc-server
+
+  caravanas:
+    build: ./caravanas
+    container_name: caravanas_container
+    ports:
+      - "50052:50052"
+    network:
+      - grpc-server
+
+networks:
+  grpc-server:
+    external: true

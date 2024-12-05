@@ -1,0 +1,15 @@
+*PARTIENDO DE LA IMPROVISACION DE ESTE ARCHIVO Y LO QUE ENTENDIMOS:
+
+Para ejecutar esto en una maquina viertual/PC y tomando en cuenta que se
+adapto el codigo rapidamente las instrucciones son las siguientes:
+
+1. COPIAR TODO A UNA CARPETA
+2. EN ESA CARPETA EJECUTAR LA INSTRUCCION DE MAKEFILE make up
+  2.1 make up lo que hace es buildear el docker_compose y posteriormente levantarlo
+  esto lo logra a traves de los dockerfiles a los que llama el docker_compose como 
+  efecto cascada levantando los contenedores para cada carpeta y por ende cada parte 
+  del problema
+
+3. UNA VEZ FINALIZADO USAR make down para que se cierre todo en caso de no cerrarse
+
+4. disclaimer: ojala se refiriera a esto en el correo. agradecidos por leer.
