@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package supervisoreshexgate;
+
+option go_package = "/proto";
+
+import "google/protobuf/empty.proto";
+
+message VectorClockEntry {
+    string key = 1;
+    repeated int32 values = 2;
+}
+
+message Request {
+    string command_type = 1;
+    string region = 2;
+    string product = 3;
+    string new_name = 4;
+    int32 value = 5;
+    repeated VectorClockEntry vector_clock = 6;
+}
+
+message Response {
+    repeated VectorClockEntry vector_clock = 1;
+    string server_address = 2;
+    string message = 3;
+}
+
+service SupervisorService {
+    rpc SendCommandToBroker(Request) returns (Response);
+    rpc HandleResponse(Response) returns (google.protobuf.Empty);
+}
+
+service BrokerService {
+    rpc RedirectRequest(Request) returns (Response);
+}

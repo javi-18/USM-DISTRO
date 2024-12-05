@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package jayce;
+
+option go_package = "/proto";
+
+message VectorClockEntry {
+    string key = 1;
+    repeated int32 values = 2;
+}
+
+message Request {
+    string command_type = 1;
+    string region = 2;
+    string product = 3;
+    repeated VectorClockEntry vector_clock = 4;
+}
+
+message Response {
+    string server_address = 1;
+    repeated VectorClockEntry vector_clock = 2;
+    int32 quantity = 3;
+    string message = 4;
+}
+
+message InconsistencyRequest {
+    string region = 1;
+    string product = 2;
+    repeated VectorClockEntry vector_clock = 3;
+}
+
+service BrokerService {
+    rpc RedirectRequest(Request) returns (Response);
+    rpc HandleInconsistency(InconsistencyRequest) returns (Response);
+}

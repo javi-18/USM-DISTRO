@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package servidoreshextech;
+
+option go_package = "/proto";
+
+import "google/protobuf/empty.proto";
+
+// Representa una entrada en el reloj vectorial
+message VectorClockEntry {
+    string key = 1;            // Identificador del nodo
+    repeated int32 values = 2; // Valores del reloj vectorial
+}
+
+// Solicitud para agregar o actualizar productos
+message ProductRequest {
+    string region = 1;         // Región del producto
+    string product = 2;        // Nombre del producto
+    int32 quantity = 3;        // Cantidad (o valor asociado)
+}
+
+// Solicitud para renombrar productos
+message RenameRequest {
+    string region = 1;         // Región del producto
+    string old_name = 2;       // Nombre actual del producto
+    string new_name = 3;       // Nuevo nombre para el producto
+}
+
+// Solicitud para propagar cambios entre nodos
+message PropagateRequest {
+    repeated VectorClockEntry vector_clock = 1; // Estado del reloj vectorial
+    repeated string logs = 2;                  // Registros de cambios realizados
+}
+
+// Respuesta genérica
+message Response {
+    string message = 1;        // Mensaje de respuesta
+    bool success = 2;          // Indica si la operación fue exitosa
+}
+
+// Solicitud para sincronización entre nodos
+message SyncRequest {
+    repeated VectorClockEntry vector_clock = 1; // Estado del reloj vectorial para sincronizar
+    string source_node = 2;                     // Nodo origen de la sincronización
+}
+
+// Respuesta a una solicitud de sincronización
+message SyncResponse {
+    repeated VectorClockEntry updated_clock = 1; // Reloj vectorial actualizado
+    repeated string updated_logs = 2;           // Cambios sincronizados
+}
+
+// Definición del servicio Hextech
+service HextechService {
+    // Operaciones CRUD para productos
+    rpc AddProduct(ProductRequest) returns (Response);
+    rpc RenameProduct(RenameRequest) returns (Response);
+    rpc DeleteProduct(ProductRequest) returns (Response);
+
+    // Propagación de cambios entre nodos
+    rpc PropagateChanges(PropagateRequest) returns (google.protobuf.Empty);
+
+    // Sincronización entre nodos
+    rpc SyncState(SyncRequest) returns (SyncResponse);
+}

@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package broker;
+
+option go_package = "/proto";
+
+message VectorClockEntry {
+    string key = 1;
+    repeated int32 values = 2;
+}
+
+message Request {
+    string command_type = 1;
+    string region = 2;
+    string product = 3;
+    int32 value = 4;
+    string new_name = 5;
+    repeated VectorClockEntry vector_clock = 6;
+}
+
+message Response {
+    string server_address = 1;
+    repeated VectorClockEntry vector_clock = 2;
+    string message = 3;
+}
+
+message InconsistencyRequest {
+    string region = 1;
+    string product = 2;
+    repeated VectorClockEntry vector_clock = 3;
+}
+
+message Empty {}
+
+service BrokerService {
+    rpc RedirectRequest(Request) returns (Response);
+    rpc HandleInconsistency(InconsistencyRequest) returns (Response);
+}
+
+service HextechService {
+    rpc HandleRequest(Request) returns (Response);
+    rpc ResolveInconsistency(InconsistencyRequest) returns (Response);
+    rpc GetVectorClock(Empty) returns (Response);
+}
