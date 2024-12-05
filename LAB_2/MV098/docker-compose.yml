@@ -1,0 +1,30 @@
+version: '3'
+services:
+  diaboromon:
+    build: ./Diaboromon
+    container_name: diaboromon
+    ports:
+      - "5004:5004"
+    stdin_open: true
+    tty: true
+    volumes:
+      - ../Compartidos/textos/INPUT.txt:/app/INPUT.txt
+    networks:
+      - ingress
+
+  primary-node:
+    build: ./PrimaryNode
+    container_name: primary-node
+    ports:
+      - "5007:5007"
+    stdin_open: true
+    tty: true
+    volumes:
+      - ../Compartidos/textos/INPUT.txt:/app/INPUT.txt
+      - ../Compartidos/textos/INFO.txt:/app/INFO.txt
+    networks:
+      - ingress
+
+networks:
+  ingress:
+    external: true

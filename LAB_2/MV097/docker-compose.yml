@@ -1,0 +1,29 @@
+version: '3'
+services:
+  datanode1:
+    build: ./DataNode1
+    container_name: datanode1
+    ports:
+      - "5002:5002"
+    stdin_open: true
+    tty: true
+    volumes:
+      - ../Compartidos/textos/INFO_1.txt:/app/INFO_1.txt
+    networks:
+      - ingress
+
+  datanode2:
+    build: ./DataNode2
+    container_name: datanode2
+    ports:
+      - "5006:5006"
+    stdin_open: true
+    tty: true
+    volumes:
+      - ../Compartidos/textos/INFO_2.txt:/app/INFO_2.txt
+    networks:
+      - ingress
+
+networks:
+  ingress:
+    external: true
