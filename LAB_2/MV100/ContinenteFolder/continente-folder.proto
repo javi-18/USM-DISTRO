@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package server;
+
+option go_package = "/proto";
+
+
+message Solicitud {
+    string mensaje = 1; 
+}
+
+message Respuesta {
+    string resultado = 1;
+}
+
+service Comunicacion {
+    rpc EnviarEncriptado(Solicitud) returns (Respuesta);
+}

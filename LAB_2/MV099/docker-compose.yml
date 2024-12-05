@@ -1,0 +1,31 @@
+version: '3'
+services:
+  continente-server:
+    build: ./ContinenteServer
+    container_name: continente-server
+    ports:
+      - "5005:5005"
+    stdin_open: true
+    tty: true
+    volumes:
+      - ../Compartidos/textos/INPUT.txt:/app/INPUT.txt
+      - ../Compartidos/textos/DIGIMONS.txt:/app/DIGIMONS.txt
+    networks:
+      - ingress
+
+  isla-file:
+    build: ./IslaFile
+    container_name: isla-file
+    ports:
+      - "5001:5001"
+    stdin_open: true
+    tty: true
+    volumes:
+      - ../Compartidos/textos/INPUT.txt:/app/INPUT.txt
+      - ../Compartidos/textos/DIGIMONS.txt:/app/DIGIMONS.txt
+    networks:
+      - ingress
+
+networks:
+  ingress:
+    external: true

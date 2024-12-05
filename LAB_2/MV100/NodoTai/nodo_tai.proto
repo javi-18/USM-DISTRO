@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package battle;
+
+import "google/protobuf/empty.proto";
+
+option go_package = "/proto";
+
+message BattleRequest {
+  int32 damage = 1;
+  string attack_type = 2;
+}
+
+message BattleResponse {
+  string result = 1;
+}
+
+service NodoTai {
+  rpc SolicitarDatos (google.protobuf.Empty) returns (BattleResponse);
+  rpc Atacar (BattleRequest) returns (BattleResponse);
+}
+
+

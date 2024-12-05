@@ -1,0 +1,30 @@
+version: '3'
+services:
+  continente-folder:
+    build: ./ContinenteFolder
+    container_name: continente-folder
+    ports:
+      - "5003:5003"
+    stdin_open: true
+    tty: true
+    volumes:
+      - ../Compartidos/textos/INPUT.txt:/app/INPUT.txt
+      - ../Compartidos/textos/DIGIMONS.txt:/app/DIGIMONS.txt
+    networks:
+      - ingress
+
+  nodo-tai:
+    build: ./NodoTai
+    container_name: nodo-tai
+    ports:
+      - "5008:5008"
+    stdin_open: true
+    tty: true
+    volumes:
+      - ../Compartidos/textos/INPUT.txt:/app/INPUT.txt
+    networks:
+      - ingress
+
+networks:
+  ingress:
+    external: true
